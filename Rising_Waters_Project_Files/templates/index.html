@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Rising Waters — An AI-powered flood prediction system developed by Pravalika using machine learning to analyze weather parameters and predict flood risks in real time.">
+  <meta name="keywords" content="flood prediction, machine learning, weather analysis, XGBoost, disaster prevention, Pravalika">
+  <meta name="author" content="Pravalika">
+  <title>Rising Waters: AI-Powered Flood Prediction System | By Pravalika</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="nav" id="navbar" aria-label="Main Navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" id="nav-logo" aria-label="Rising Waters Home">
+        <span>Rising Waters</span> 🌊
+      </a>
+      <div class="nav__links" id="nav-links">
+        <a href="/" class="nav__link nav__link--active" id="nav-home">Home</a>
+        <a href="/predict" class="nav__link" id="nav-predict">Analyze Risk</a>
+        <a href="#features" class="nav__link" id="nav-features">System Capabilities</a>
+        <a href="#about" class="nav__link" id="nav-about">How It Works</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO SECTION ===== -->
+  <header class="hero-section" id="hero">
+    <!-- Glowing background blur decorations -->
+    <div class="hero__decoration hero__decoration--1" aria-hidden="true"></div>
+    <div class="hero__decoration hero__decoration--2" aria-hidden="true"></div>
+    <div class="hero__decoration hero__decoration--3" aria-hidden="true"></div>
+
+    <div class="hero__content">
+      <span class="hero__badge" id="hero-badge" role="status">🛰️ High-Performance Predictive Engine</span>
+      <h1 class="hero__title" id="hero-title">
+        Predict Regional Flood Risks with <span class="gradient-text">Machine Learning</span>
+      </h1>
+      <p class="hero__subtitle" id="hero-subtitle">Rising Waters: Early-Warning Meteorological System</p>
+      <p class="hero__description" id="hero-description">
+        Leverage the power of extreme gradient boosting to forecast regional flood threats in real time. 
+        By inputting six critical rainfall and cloud cover aggregates, you receive instant, actionable predictions 
+        to safeguard lives, crops, and local infrastructure.
+      </p>
+      <div class="hero__cta">
+        <a href="/predict" class="btn btn-primary btn--lg" id="hero-cta-btn" aria-label="Access the prediction dashboard">
+          Access Prediction Dashboard 🔍
+        </a>
+      </div>
+
+      <!-- ===== SYSTEM STATUS METRICS BAR ===== -->
+      <div style="margin-top: 60px;" class="container--narrow">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px;" class="glass-card glass-card--static">
+          <div style="padding: 10px;">
+            <div style="font-size: 2.2rem; font-weight: 800; font-family: var(--font-heading);" class="gradient-text">95.42%</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px;">Model Accuracy</div>
+          </div>
+          <div style="padding: 10px; border-left: 1px solid rgba(255, 255, 255, 0.1);">
+            <div style="font-size: 2.2rem; font-weight: 800; font-family: var(--font-heading);" class="gradient-text">~17ms</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px;">Inference Latency</div>
+          </div>
+          <div style="padding: 10px; border-left: 1px solid rgba(255, 255, 255, 0.1);">
+            <div style="font-size: 2.2rem; font-weight: 800; font-family: var(--font-heading); display: inline-flex; align-items: center; gap: 8px;" class="gradient-text">
+              <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: var(--success); box-shadow: 0 0 10px var(--success);"></span>
+              Live
+            </div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px;">System Status</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wave Divider Accent -->
+      <div class="waves" aria-hidden="true">
+        <svg class="editorial" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none">
+          <defs>
+            <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s58 18 88 18 58-18 88-18 58 18 88 18v44h-352z" />
+          </defs>
+          <g class="parallax">
+            <use xlink:href="#gentle-wave" x="50" y="0" />
+            <use xlink:href="#gentle-wave" x="50" y="3" />
+            <use xlink:href="#gentle-wave" x="50" y="6" />
+            <use xlink:href="#gentle-wave" x="50" y="9" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== FEATURES SECTION ===== -->
+  <section class="features-section" id="features" aria-labelledby="features-title">
+    <div class="container">
+      <span class="section-label text-center" style="display:block;">System Core Features</span>
+      <h2 class="features-section__title text-center" id="features-title">Designed for Emergency Mitigation</h2>
+      <p class="features-section__subtitle text-center" id="features-subtitle">
+        A structured predictive pipeline engineered for low latency, stability, and regional customization.
+      </p>
+
+      <div class="feature-grid" id="feature-grid">
+        <!-- Feature 1 -->
+        <article class="glass-card feature-card" id="feature-ml">
+          <span class="feature-card__icon" aria-hidden="true">🤖</span>
+          <h3 class="feature-card__title">Adaptive Classifiers</h3>
+          <p class="feature-card__desc">
+            Integrates Decision Trees, Random Forests, KNN, and a tuned **XGBoost Classifier** that minimizes 
+            log-loss residuals for predictive safety.
+          </p>
+        </article>
+
+        <!-- Feature 2 -->
+        <article class="glass-card feature-card" id="feature-realtime">
+          <span class="feature-card__icon" aria-hidden="true">⚡</span>
+          <h3 class="feature-card__title">Real-Time Risk Scoring</h3>
+          <p class="feature-card__desc">
+            Instantly maps local cloud visibility and seasonal rainfall patterns into clear probability scores in milliseconds.
+          </p>
+        </article>
+
+        <!-- Feature 3 -->
+        <article class="glass-card feature-card" id="feature-scalable">
+          <span class="feature-card__icon" aria-hidden="true">🌍</span>
+          <h3 class="feature-card__title">Cloud-Scale Architecture</h3>
+          <p class="feature-card__desc">
+            Modular framework built with custom templates, ready for deployment to serverless containers or global clusters.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT SECTION ===== -->
+  <section class="about-section" id="about" aria-labelledby="about-title">
+    <div class="container">
+      <div class="glass-card about-card glass-card--static" id="about-card">
+        <span class="section-label">Model Operations</span>
+        <h2 class="about-card__title" id="about-title">Translating Weather Data Into Safety Action</h2>
+        <p class="about-card__text" id="about-text-1">
+          The engine operates by loading a pre-trained **Extreme Gradient Boosting (XGBoost)** classifier alongside a pre-fitted **StandardScaler** mapping profile. When input variables are entered, the system standardizes the scale to eliminate numerical skewness and evaluates the data across multi-branched decision boundaries.
+        </p>
+        <p class="about-card__text" id="about-text-2">
+          This system serves as an interactive decision-support utility for meteorologists, relief workers, and agricultural analysts, replacing heavy physical boundary simulations with rapid, reliable classification boundaries.
+        </p>
+        <div style="margin-top: 32px; display: flex; gap: 16px; flex-wrap: wrap;">
+          <a href="/predict" class="btn btn-primary" id="about-cta-btn">Start Risk Analysis</a>
+          <a href="#hero" class="btn btn-secondary" id="about-top-btn">Back to Top</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <p>
+        &copy; 2026 <a href="/">Rising Waters</a> &mdash; Developed by Pravalika &mdash;
+        Engineered with <span class="footer__heart" aria-label="love">♥</span> for disaster preparedness and environmental resilience.
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

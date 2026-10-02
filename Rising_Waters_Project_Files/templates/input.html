@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Enter weather parameters to predict regional flood risk using our machine learning classifier. Developed by Pravalika.">
+  <meta name="keywords" content="flood prediction, weather data input, rainfall analysis, risk evaluation, Pravalika">
+  <meta name="author" content="Pravalika">
+  <title>Analyze Flood Risk | Rising Waters &mdash; By Pravalika</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="nav" id="navbar" aria-label="Main Navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" id="nav-logo" aria-label="Rising Waters Home">
+        <span>Rising Waters</span> 🌊
+      </a>
+      <div class="nav__links" id="nav-links">
+        <a href="/" class="nav__link" id="nav-home">Home</a>
+        <a href="/predict" class="nav__link nav__link--active" id="nav-predict">Analyze Risk</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== PAGE HEADER ===== -->
+  <header class="page-header" id="page-header" style="margin-top: 100px; text-align: center; padding: 48px 0 64px; position: relative; overflow: hidden;">
+    <div class="container" style="position: relative; z-index: 10;">
+      <span class="section-label">Operational Dashboard</span>
+      <h1 class="page-header__title" id="page-title" style="font-size: clamp(2rem, 5vw, 3rem); font-weight: 800;">
+        Input <span class="gradient-text">Meteorological Parameters</span>
+      </h1>
+      <p class="page-header__subtitle" id="page-subtitle" style="color: var(--text-secondary); max-width: 600px; margin: 12px auto 0; font-size: 1.1rem; padding-bottom: 20px;">
+        Provide localized atmospheric and precipitation readings. The system will evaluate them across trained decision models.
+      </p>
+    </div>
+    <!-- Wave Divider Accent -->
+    <div class="waves" aria-hidden="true" style="height: 60px; min-height: 60px;">
+      <svg class="editorial" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s58 18 88 18 58-18 88-18 58 18 88 18v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="50" y="0" />
+          <use xlink:href="#gentle-wave" x="50" y="3" />
+          <use xlink:href="#gentle-wave" x="50" y="6" />
+          <use xlink:href="#gentle-wave" x="50" y="9" />
+        </g>
+      </svg>
+    </div>
+  </header>
+
+  <!-- ===== PREDICTION FORM ===== -->
+  <main class="container container--narrow" style="padding-bottom: 80px;">
+    <div class="predict-form-wrapper" id="predict-form-wrapper">
+      <div class="glass-card">
+        
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 28px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 16px;">
+          <span style="font-size: 1.8rem;">📊</span>
+          <h2 class="form-title" id="form-title" style="font-family: var(--font-heading); font-size: 1.4rem; font-weight: 700; margin: 0;">Weather Data Profiler</h2>
+        </div>
+
+        <form action="/result" method="POST" id="predict-form">
+          <div class="form-grid" id="form-grid">
+
+            <!-- Annual Rainfall -->
+            <div class="input-group" id="input-group-annual-rainfall">
+              <label for="annual_rainfall">Annual Rainfall (mm)</label>
+              <input
+                type="number"
+                id="annual_rainfall"
+                name="annual_rainfall"
+                step="0.01"
+                min="0"
+                placeholder="e.g., 2200.50"
+                aria-describedby="hint-annual-rainfall"
+                required
+              >
+              <span class="input-hint" id="hint-annual-rainfall">Total cumulative precipitation across the calendar year</span>
+            </div>
+
+            <!-- Cloud Coverage -->
+            <div class="input-group" id="input-group-cloud-coverage">
+              <label for="cloud_coverage">Cloud Coverage (%)</label>
+              <input
+                type="number"
+                id="cloud_coverage"
+                name="cloud_coverage"
+                step="0.01"
+                min="0"
+                max="100"
+                placeholder="e.g., 68.4"
+                aria-describedby="hint-cloud-coverage"
+                required
+              >
+              <span class="input-hint" id="hint-cloud-coverage">Average percentage of cloud coverage (range: 0 - 100%)</span>
+            </div>
+
+            <!-- Monsoon Rainfall Jun-Sep -->
+            <div class="input-group" id="input-group-jun-sep">
+              <label for="jun_sep">Monsoon Rainfall Jun–Sep (mm)</label>
+              <input
+                type="number"
+                id="jun_sep"
+                name="jun_sep"
+                step="0.01"
+                min="0"
+                placeholder="e.g., 1250.00"
+                aria-describedby="hint-jun-sep"
+                required
+              >
+              <span class="input-hint" id="hint-jun-sep">Cumulative rainfall during high summer monsoon season</span>
+            </div>
+
+            <!-- Pre-Monsoon Rainfall Mar-May -->
+            <div class="input-group" id="input-group-mar-may">
+              <label for="mar_may">Pre-Monsoon Rainfall Mar–May (mm)</label>
+              <input
+                type="number"
+                id="mar_may"
+                name="mar_may"
+                step="0.01"
+                min="0"
+                placeholder="e.g., 340.20"
+                aria-describedby="hint-mar-may"
+                required
+              >
+              <span class="input-hint" id="hint-mar-may">Cumulative rainfall recorded during spring season</span>
+            </div>
+
+            <!-- Post-Monsoon Rainfall Oct-Dec -->
+            <div class="input-group" id="input-group-oct-dec">
+              <label for="oct_dec">Post-Monsoon Rainfall Oct–Dec (mm)</label>
+              <input
+                type="number"
+                id="oct_dec"
+                name="oct_dec"
+                step="0.01"
+                min="0"
+                placeholder="e.g., 410.80"
+                aria-describedby="hint-oct-dec"
+                required
+              >
+              <span class="input-hint" id="hint-oct-dec">Cumulative rainfall recorded during autumn transition</span>
+            </div>
+
+            <!-- Winter Rainfall Jan-Feb -->
+            <div class="input-group" id="input-group-jan-feb">
+              <label for="jan_feb">Winter Rainfall Jan–Feb (mm)</label>
+              <input
+                type="number"
+                id="jan_feb"
+                name="jan_feb"
+                step="0.01"
+                min="0"
+                placeholder="e.g., 120.00"
+                aria-describedby="hint-jan-feb"
+                required
+              >
+              <span class="input-hint" id="hint-jan-feb">Cumulative rainfall recorded during winter season</span>
+            </div>
+
+          </div>
+
+          <div class="form-actions" id="form-actions" style="margin-top: 40px; display: flex; flex-direction: column; align-items: center; gap: 16px;">
+            <button type="submit" class="btn btn-primary btn--lg" id="submit-btn" style="width: 100%; max-width: 400px;" aria-label="Calculate prediction risk">
+              Run Predictive Analysis ⚡
+            </button>
+            <a href="/" class="form-back" id="back-link" style="color: var(--text-secondary); font-size: 0.95rem; display: inline-flex; align-items: center; gap: 6px;">
+              <span>←</span> Return to Homepage
+            </a>
+          </div>
+        </form>
+        
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <p>
+        &copy; 2026 <a href="/">Rising Waters</a> &mdash; Developed by Pravalika &mdash;
+        Engineered with <span class="footer__heart" aria-label="love">♥</span> for disaster preparedness and environmental resilience.
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
