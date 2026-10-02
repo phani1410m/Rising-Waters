@@ -317,7 +317,7 @@ The system can be deployed directly to cloud services such as **Render**, **Hero
 
 ## ✍️ Author
 
-**Pravalika Simma** (Lead Developer)  
+**Phaneendra Kishore** (Team Member Developer)  
 Created with a focus on leveraging data science and machine learning for disaster mitigation, early warning systems, and community safety.
 
 For support, feedback, or collaborations, feel free to raise an issue or reach out through the project repository.
